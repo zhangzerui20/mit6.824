@@ -74,14 +74,14 @@ func doReduce(
 		file.Close()
 	}
 
-	fmt.Println("get before ******************")
 	//step3:
 	for _, x := range mykeyValue {
 		var flag = 0 //统计中是否有这个 key,有的话 将value加入这个key的value 中，没有的话，新加入一个sortedkeyvalue
-		for _, y := range sortedkv {
+		for i, y := range sortedkv {
 			if x.Key == y.key {
 				flag = 1
-				y.value = append(y.value, x.Value)
+				fmt.Println("get it********")
+				sortedkv[i].value = append(sortedkv[i].value, x.Value)
 			}
 		}
 		if flag == 0 {
@@ -90,7 +90,6 @@ func doReduce(
 			tmpkv.value = append(tmpkv.value, x.Value)
 			sortedkv = append(sortedkv, *tmpkv)
 		}
-		//fmt.Println("get here ******************")
 	}
 
 	//step4:
